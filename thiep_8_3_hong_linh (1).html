@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thiệp 8/3</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffe4ec, #fff5f9);
+  }
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+  }
+  .card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    max-width: 400px;
+  }
+  input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 80%;
+    margin-top: 10px;
+  }
+  button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #ff6fa5;
+    color: white;
+    cursor: pointer;
+  }
+  .hidden { display: none; }
+  h1 { color: #ff4d88; }
+  .sender { margin-top: 20px; font-style: italic; }
+  .fall {
+    position: fixed;
+    top: -20px;
+    font-size: 20px;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    to { transform: translateY(110vh); }
+  }
+</style>
+</head>
+<body>
+<div id="lock" class="center">
+  <div class="card">
+    <h2>🔒 Nhập mật khẩu để mở thiệp</h2>
+    <input type="password" id="pass" placeholder="Nhập mật khẩu..." />
+    <br/>
+    <button onclick="checkPass()">Mở thiệp</button>
+    <p id="error" style="color:red"></p>
+  </div>
+</div>
+
+<div id="content" class="center hidden">
+  <div class="card">
+    <h1>🌸Chúc bạn 8/3 vui vẻ 🌸</h1>
+    <p>💖Chúc bạn 8/3 vui vẻ, luôn hồn nhiên và vui tươi 💖</p>
+    <p>Hãy nhớ phía sau bạn luôn có tôi</p>
+    <div class="sender">— Người luôn bên bạn —</div>
+  </div>
+</div>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9f5c0b0b2e.mp3?filename=romantic-piano-ambient-110624.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const correct = "HongLinh";
+  function checkPass() {
+    const val = document.getElementById('pass').value;
+    if (val === correct) {
+      document.getElementById('lock').classList.add('hidden');
+      document.getElementById('content').classList.remove('hidden');
+      document.getElementById('music').play();
+      startEffect();
+    } else {
+      document.getElementById('error').innerText = 'Sai mật khẩu rồi 😢';
+    }
+  }
+
+  function startEffect() {
+    const icons = ['💖','🌸','❤️','🌷'];
+    setInterval(() => {
+      const el = document.createElement('div');
+      el.className = 'fall';
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.animationDuration = (3 + Math.random()*4) + 's';
+      el.innerText = icons[Math.floor(Math.random()*icons.length)];
+      document.body.appendChild(el);
+      setTimeout(()=>el.remove(),7000);
+    }, 300);
+  }
+</script>
+</body>
+</html>
